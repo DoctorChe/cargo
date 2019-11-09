@@ -9,8 +9,6 @@ sys.path.append(os.path.join(os.getcwd(), "../cargo"))
 
 from cargo.app import Cargo
 
-TEST_DATABASE = "sqlite:///cargo/test/test_db.sqlite3"
-
 
 class TestCargoInstance(unittest.TestCase):
 

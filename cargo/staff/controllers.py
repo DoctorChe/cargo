@@ -21,7 +21,10 @@ def create_person_controller(command):
 @logged
 def read_person_controller(command):
     try:
+        # person_id = command.get('data').get('person').get('id')
         person_id = command.get('data').get('person').get('id')
+        if not person_id:
+            raise IndexError
     except IndexError:
         return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
     else:
@@ -29,7 +32,7 @@ def read_person_controller(command):
             person = session.query(Person).filter_by(id=person_id).first()
             if person:
                 person = {attr: getattr(person, attr) for attr in person.__dict__ if attr[0] != '_'}
-                return create_response(command, OK, {'person': person, 'message': 'Person created'})
+                return create_response(command, OK, {'person': person, 'message': 'Person read'})
             else:
                 return create_response(command, NOT_FOUND, {'message': f'Person with id={person_id} not found'})
 
@@ -66,6 +69,8 @@ def update_person_controller(command):
 def delete_person_controller(command):
     try:
         person_id = command.get('data').get('person').get('id')
+        if not person_id:
+            raise IndexError
     except IndexError:
         return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
     else:

@@ -1,6 +1,11 @@
 import os
 
-DATABASE = 'sqlite:///cargo/db/db.sqlite3'
+TEST_MODE = True
+
+if TEST_MODE:
+    DATABASE = 'sqlite:///../tests/db.sqlite3'
+else:
+    DATABASE = 'sqlite:///cargo/db/db.sqlite3'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
