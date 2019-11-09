@@ -1,6 +1,6 @@
 from datetime import datetime
 
-# from cargo.utils.config import RESPONSE_CODES
+from cargo.utils.config import RESPONSE_CODES
 from cargo.utils.config_log import logger
 from cargo.utils.decorators import logged
 
@@ -21,8 +21,7 @@ def create_command(action: str, data: dict) -> dict:
 
 
 @logged
-# def create_response(request: dict, response_code: int, data=None) -> dict:
-def create_response(request: dict, response_str: str, data=None) -> dict:
+def create_response(request: dict, response_code: int, data=None) -> dict:
     """
     Создать сообщение
     :param request: Словарь запроса
@@ -30,14 +29,13 @@ def create_response(request: dict, response_str: str, data=None) -> dict:
     :param data: Словарь с дополнительными данными в ответе (например описание ошибки)
     :return: Словарь ответа
     """
-    # if response_code in RESPONSE_CODES:
-    return {
-        'action': request.get('action'),
-        # 'response': response_code,
-        'response': response_str,
-        'data': data,
-        'time': request.get('time'),
-    }
+    if response_code in RESPONSE_CODES:
+        return {
+            'action': request.get('action'),
+            'response': response_code,
+            'data': data,
+            'time': request.get('time'),
+        }
 
 
 def common_check_command(data: dict) -> bool:

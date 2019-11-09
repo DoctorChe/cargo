@@ -19,10 +19,25 @@ class Cargo:
         return True
 
     def run(self):
-        command = create_command('create_person', {'person': {'name': 'Duncan', 'surname': 'MacLeod'}})
-        response = self._handler(command)
-        print(response)
+        id = 1
         command = create_command('read_all_persons', dict())
         response = self._handler(command)
-        print(response.get('response'))
-
+        logger.info(response)
+        command = create_command('create_person', {'person': {'name': 'Duncan', 'surname': 'MacLeod'}})
+        response = self._handler(command)
+        logger.info(response)
+        command = create_command('read_person', {'person': {'id': id}})
+        response = self._handler(command)
+        logger.info(response)
+        command = create_command('update_person', {'person': {'id': id, 'name': 'Scotch'}})
+        response = self._handler(command)
+        logger.info(response)
+        command = create_command('read_person', {'person': {'id': id}})
+        response = self._handler(command)
+        logger.info(response)
+        command = create_command('delete_person', {'person': {'id': id}})
+        response = self._handler(command)
+        logger.info(response)
+        command = create_command('read_person', {'person': {'id': id}})
+        response = self._handler(command)
+        logger.info(response)

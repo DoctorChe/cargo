@@ -1,6 +1,5 @@
 import os
 
-# База данных для хранения данных сервера:
 DATABASE = "sqlite:///cargo/db/db.sqlite3"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -15,9 +14,13 @@ INSTALLED_MODULES = (
 )
 
 OK = 200  # OK
-WRONG_REQUEST = 400  # неправильный запрос
+WRONG_REQUEST = 400
+NOT_FOUND = 404
+SERVER_ERROR = 500
 
 RESPONSE_CODES = (
     OK,
     WRONG_REQUEST,
+    NOT_FOUND,
+    SERVER_ERROR,
 )

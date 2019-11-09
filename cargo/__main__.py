@@ -2,7 +2,7 @@ import os
 
 from cargo.app import Cargo
 from cargo.utils.parser import create_parser
-from cargo.utils.handlers import handle
+from cargo.utils.handlers import handler
 from cargo.utils.db import Base
 from cargo.utils.config import INSTALLED_MODULES, BASE_DIR
 
@@ -18,5 +18,5 @@ if parser.parse_args().migrate:
     Base.metadata.create_all()
 
 else:
-    with Cargo(handle) as cargo:
+    with Cargo(handler) as cargo:
         cargo.run()

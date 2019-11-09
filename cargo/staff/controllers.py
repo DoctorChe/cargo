@@ -1,4 +1,5 @@
 from cargo.staff.models import Person
+from cargo.utils.config import OK, WRONG_REQUEST, NOT_FOUND
 from cargo.utils.db import session_scope
 
 from cargo.utils.decorators import logged
@@ -9,47 +10,56 @@ from cargo.utils.protocol import create_response
 def create_person_controller(command):
     data = command.get('data')
     with session_scope() as session:
-        person = data.get('person')
-        p = Person(
-            name=person.get('name'),
-            surname=person.get('surname'),
-            patronymic=person.get('patronymic'),
-            phone=person.get('phone'),
-            info=person.get('info'),
-        )
-        session.add(p)
-    return create_response(command, 'Person added')
+        person = Person()
+        for k, v in data.get('person').items():
+            if v:
+                setattr(person, k, v)
+        session.add(person)
+    return create_response(command, OK, {'message': 'Person added'})
+
+
+@logged
+def read_person_controller(command):
+    try:
+        person_id = command.get('data').get('person').get('id')
+    except IndexError:
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
+    else:
+        with session_scope() as session:
+            person = session.query(Person).filter_by(id=person_id).first()
+            if person:
+                person = {attr: getattr(person, attr) for attr in person.__dict__ if attr[0] != '_'}
+                return create_response(command, OK, {'person': person, 'message': 'Person created'})
+            else:
+                return create_response(command, NOT_FOUND, {'message': f'Person with id={person_id} not found'})
 
 
 @logged
 def read_persons_controller(command):
     with session_scope() as session:
         persons = session.query(Person).all()
-        return create_response(command, 'Persons read', {'persons': persons})
+        persons = [{attr: getattr(person, attr) for attr in person.__dict__ if attr[0] != '_'} for person in persons]
+        return create_response(command, OK, {'persons': persons, 'message': 'Persons read'})
 
 
 @logged
 def update_person_controller(command):
     data = command.get('data')
     try:
-        person = data.get('person')
-        person_id = person.get('id')
-        name = person.get('name')
-        surname = person.get('surname')
-        patronymic = person.get('patronymic')
-        phone = person.get('phone')
-        info = person.get('info')
+        person_attrs = {attr: data.get('person').get(attr) for attr in Person.__dict__ if attr[0] != '_'}
     except IndexError:
-        return create_response(command, 'WRONG_REQUEST', {'message': 'Не задан id или данные'})
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
     else:
         with session_scope() as session:
-            p = session.query(Person).filter_by(id=person_id).first()
-            p.name = name
-            p.surname = surname
-            p.patronymic = patronymic
-            p.phone = phone
-            p.info = info
-        return create_response(command, 'OK')
+            person = session.query(Person).filter_by(id=person_attrs.get('id')).first()
+            if person:
+                for k, v in person_attrs.items():
+                    if v:
+                        setattr(person, k, v)
+                return create_response(command, OK, {'message': 'Person updated'})
+            else:
+                return create_response(command, NOT_FOUND,
+                                       {'message': f'Person with id={person_attrs.get("id")} not found'})
 
 
 @logged
@@ -57,9 +67,12 @@ def delete_person_controller(command):
     try:
         person_id = command.get('data').get('person').get('id')
     except IndexError:
-        return create_response(command, 'WRONG_REQUEST', {'message': 'Не задан id или данные'})
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
     else:
         with session_scope() as session:
-            p = session.query(Person).filter_by(id=person_id).first()
-            session.delete(p)
-        return create_response(command, 'OK')
+            person = session.query(Person).filter_by(id=person_id).first()
+            if person:
+                session.delete(person)
+                return create_response(command, OK, {'message': 'Person deleted'})
+            else:
+                return create_response(command, NOT_FOUND, {'message': f'Person with id={person_id} not found'})

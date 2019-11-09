@@ -1,9 +1,10 @@
-from cargo.utils.protocol import common_check_command
+from cargo.utils.config import SERVER_ERROR, NOT_FOUND, WRONG_REQUEST
+from cargo.utils.protocol import common_check_command, create_response
 from .resolvers import resolve
 from .config_log import logger
 
 
-def handle(command):
+def handler(command):
     logger.debug(f"Checking command : {command}")
     if common_check_command(command):
         logger.debug(f"Command '{command}' was checked")
@@ -12,17 +13,14 @@ def handle(command):
         if controller:
             try:
                 logger.debug(f'Controller {action_name} resolved with request: {command}')
-                # response = controller(command.get('data'))
                 response = controller(command)
             except Exception as e:
                 logger.critical(f'Controller {action_name} error: {e}')
-                response = 'Internal cargo error'
+                response = create_response(command, SERVER_ERROR, {'message': 'Internal cargo error'})
         else:
             logger.error(f'Controller {action_name} not found')
-            response = f'Action with name {action_name} not supported'
+            response = create_response(command, NOT_FOUND, {'message': f'Action with name {action_name} not supported'})
     else:
         logger.error(f'Command is incorrect: {command}')
-        response = f'Command is incorrect'
+        response = create_response(command, WRONG_REQUEST, {'message': 'Command is incorrect'})
     return response
-
-    # response = create_response(command, WRONG_REQUEST, {MESSAGE: "Запрос некорректен."})
