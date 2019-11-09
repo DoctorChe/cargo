@@ -1,19 +1,18 @@
 import os
 
-DATABASE = "sqlite:///cargo/db/db.sqlite3"
+DATABASE = 'sqlite:///cargo/db/db.sqlite3'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-PROGRAM = "cargo"
-VERSION = "0.0.1"
+PROGRAM = 'cargo'
+VERSION = '0.0.1'
 
 INSTALLED_MODULES = (
-    "staff",
-    # "auth",
-    # "contact",
+    'staff',
+    'echo',
 )
 
-OK = 200  # OK
+OK = 200
 WRONG_REQUEST = 400
 NOT_FOUND = 404
 SERVER_ERROR = 500
