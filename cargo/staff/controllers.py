@@ -21,7 +21,6 @@ def create_person_controller(command):
 @logged
 def read_person_controller(command):
     try:
-        # person_id = command.get('data').get('person').get('id')
         person_id = command.get('data').get('person').get('id')
         if not person_id:
             raise IndexError
