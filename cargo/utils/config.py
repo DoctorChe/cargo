@@ -13,8 +13,9 @@ PROGRAM = 'cargo'
 VERSION = '0.0.1'
 
 INSTALLED_MODULES = (
-    'staff',
     'echo',
+    'staff',
+    'vehicle',
 )
 
 OK = 200
