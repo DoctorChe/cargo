@@ -45,6 +45,25 @@ def read_persons_controller(command):
 
 
 @logged
+def read_routes_of_person_controller(command):
+    try:
+        person_id = command.get('data').get('person').get('id')
+        if not person_id:
+            raise IndexError
+    except IndexError:
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
+    else:
+        with session_scope() as session:
+            person = session.query(Person).filter_by(id=person_id).first()
+            if person:
+                routes = person.routes
+                routes = [{attr: getattr(route, attr) for attr in route.__dict__ if attr[0] != '_'} for route in routes]
+                return create_response(command, OK, {'routes': routes, 'message': 'Routes read'})
+            else:
+                return create_response(command, NOT_FOUND, {'message': f'Person with id={person_id} not found'})
+
+
+@logged
 def update_person_controller(command):
     data = command.get('data')
     try:

@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy.orm import relationship
 
 from cargo.utils.db import Base
+# from cargo.route.models import Route
 
 
 class Load(Base):
@@ -13,3 +15,5 @@ class Load(Base):
     load_from = Column(String, nullable=False)
     load_to = Column(String, nullable=False)
     info = Column(String)
+
+    routes = relationship('Route', back_populates='load')

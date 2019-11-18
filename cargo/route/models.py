@@ -2,6 +2,9 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from cargo.utils.db import Base
+from cargo.load.models import Load
+from cargo.staff.models import Person
+from cargo.vehicle.models import Vehicle
 
 
 class City(Base):
@@ -36,6 +39,10 @@ class Route(Base):
     from_warehouse_id = Column(Integer, ForeignKey('warehouse.id'))
     to_warehouse_id = Column(Integer, ForeignKey('warehouse.id'))
 
+    person_id = Column(Integer, ForeignKey('person.id'))
+    vehicle_id = Column(Integer, ForeignKey('vehicle.id'))
+    load_id = Column(Integer, ForeignKey('load.id'))
+
     # from_ = relationship('Warehouse', foreign_keys=from_id, uselist=False, back_populates='route')
     # from_warehouse = relationship('Warehouse', foreign_keys='[Route.from_id]')
     from_warehouse = relationship('Warehouse', foreign_keys=[from_warehouse_id])
@@ -44,3 +51,6 @@ class Route(Base):
     to_warehouse = relationship('Warehouse', foreign_keys=[to_warehouse_id])
 
     # warehouses = relationship('Warehouse', back_populates='route')
+    person = relationship('Person', back_populates='routes')
+    vehicle = relationship('Vehicle', back_populates='routes')
+    load = relationship('Load', back_populates='routes')

@@ -100,6 +100,19 @@ CREATE_ROUTE2_COMMAND = {
     },
 }
 
+PERSON1 = {
+    'name': 'Duncan',
+    'surname': 'MacLeod'
+}
+
+CREATE_PERSON1_COMMAND = {
+    'action': 'create_person',
+    'time': 1.1,
+    'data': {
+        'person': PERSON1,
+    },
+}
+
 
 class TestCity(unittest.TestCase):
 
@@ -565,6 +578,9 @@ class TestRoute(unittest.TestCase):
                     'id': 1,
                     'from_warehouse_id': 1,
                     'to_warehouse_id': 2,
+                    'load_id': None,
+                    'person_id': None,
+                    'vehicle_id': None,
                 },
             },
             'response': 200,
@@ -650,11 +666,17 @@ class TestRoute(unittest.TestCase):
                         'id': 1,
                         'from_warehouse_id': 1,
                         'to_warehouse_id': 2,
+                        'load_id': None,
+                        'person_id': None,
+                        'vehicle_id': None,
                     },
                     {
                         'id': 2,
                         'from_warehouse_id': 3,
                         'to_warehouse_id': 2,
+                        'load_id': None,
+                        'person_id': None,
+                        'vehicle_id': None,
                     },
                 ]
             },
@@ -699,6 +721,9 @@ class TestRoute(unittest.TestCase):
                     'id': 1,
                     'from_warehouse_id': 3,
                     'to_warehouse_id': 2,
+                    'load_id': None,
+                    'person_id': None,
+                    'vehicle_id': None,
                 },
             },
             'response': 200,

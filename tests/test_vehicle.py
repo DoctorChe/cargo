@@ -9,6 +9,7 @@ from cargo.utils.handlers import handler
 sys.path.append(os.path.join(os.getcwd(), "../cargo"))
 
 from cargo.app import Cargo
+from cargo.vehicle.models import Vehicle
 
 VEHICLE = {
     'model': 'KAMAZ-65207-87',
