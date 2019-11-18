@@ -15,6 +15,7 @@ VERSION = '0.0.1'
 INSTALLED_MODULES = (
     'echo',
     'load',
+    'route',
     'staff',
     'vehicle',
 )
