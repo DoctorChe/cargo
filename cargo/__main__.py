@@ -5,7 +5,7 @@ from cargo.utils.parser import create_parser
 from cargo.utils.handlers import handler
 from cargo.utils.db import Base
 from cargo.utils.config import INSTALLED_MODULES, BASE_DIR
-
+from cargo.utils.schema import generate_schema
 
 parser = create_parser()
 
@@ -16,6 +16,9 @@ if parser.parse_args().migrate:
         if os.path.exists(path):
             __import__(module_name_list[index])
     Base.metadata.create_all()
+
+elif parser.parse_args().schema:
+    generate_schema()
 
 else:
     with Cargo(handler) as cargo:
