@@ -1,2 +1,4 @@
+pydot
+sadisplay
 PySide2
 sqlalchemy
