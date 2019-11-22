@@ -1,6 +1,6 @@
 import os
 
-TEST_MODE = True
+TEST_MODE = False
 
 if TEST_MODE:
     DATABASE = 'sqlite:///../tests/db.sqlite3'

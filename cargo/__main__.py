@@ -1,6 +1,11 @@
 import os
+import sys
+
+from PyQt5.QtWidgets import QApplication
 
 from cargo.app import Cargo
+from cargo.ui.controllers.main_controller import MainController
+from cargo.ui.views.main_view import MainView
 from cargo.utils.parser import create_parser
 from cargo.utils.handlers import handler
 from cargo.utils.db import Base
@@ -8,6 +13,14 @@ from cargo.utils.config import INSTALLED_MODULES, BASE_DIR
 from cargo.utils.schema import generate_schema
 
 parser = create_parser()
+
+
+def _create_controller():
+    window = MainView()
+    # dialogs = Dialogs(window, 'CompanyStatistics')
+    # return MainController(window, dialogs)
+    return MainController(window)
+
 
 if parser.parse_args().migrate:
     module_name_list = [f'cargo.{item}.models' for item in INSTALLED_MODULES]
@@ -21,5 +34,10 @@ elif parser.parse_args().schema:
     generate_schema()
 
 else:
+    app = QApplication(sys.argv)
+    controller = _create_controller()
+
     with Cargo(handler) as cargo:
-        cargo.run()
+        # cargo.run()
+        controller.show()
+        sys.exit(app.exec_())
