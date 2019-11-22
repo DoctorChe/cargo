@@ -1,4 +1,4 @@
 pydot
 sadisplay
-PySide2
+PyQt5
 sqlalchemy
