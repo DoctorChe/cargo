@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from cargo.utils.db import Base
@@ -15,3 +15,7 @@ class Person(Base):
     info = Column(String)
 
     routes = relationship('Route', back_populates='person')
+
+    __table_args__ = (
+        UniqueConstraint('name', 'surname', 'patronymic', name='_name_surname_patronymic_uc'),
+        )

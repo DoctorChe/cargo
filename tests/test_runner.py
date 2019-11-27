@@ -1,11 +1,11 @@
 import unittest
 
-import test_common
-import test_echo
-import test_staff
-import test_vehicle
-import test_load
-import test_route
+from . import test_common
+from . import test_echo
+from . import test_staff
+from . import test_vehicle
+from . import test_load
+from . import test_route
 
 
 if __name__ == '__main__':

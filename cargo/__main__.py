@@ -15,11 +15,11 @@ from cargo.utils.schema import generate_schema
 parser = create_parser()
 
 
-def _create_controller():
+def _create_controller(handler):
     window = MainView()
     # dialogs = Dialogs(window, 'CompanyStatistics')
     # return MainController(window, dialogs)
-    return MainController(window)
+    return MainController(window, handler)
 
 
 if parser.parse_args().migrate:
@@ -35,7 +35,7 @@ elif parser.parse_args().schema:
 
 else:
     app = QApplication(sys.argv)
-    controller = _create_controller()
+    controller = _create_controller(handler)
 
     with Cargo(handler) as cargo:
         # cargo.run()
