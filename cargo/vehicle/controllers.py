@@ -46,6 +46,25 @@ def read_vehicles_controller(command):
 
 
 @logged
+def read_routes_of_vehicle_controller(command):
+    try:
+        vehicle_id = command.get('data').get('vehicle').get('id')
+        if not vehicle_id:
+            raise IndexError
+    except IndexError:
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
+    else:
+        with session_scope() as session:
+            vehicle = session.query(Vehicle).filter_by(id=vehicle_id).first()
+            if vehicle:
+                routes = vehicle.routes
+                routes = [{attr: getattr(route, attr) for attr in route.__dict__ if attr[0] != '_'} for route in routes]
+                return create_response(command, OK, {'routes': routes, 'message': 'Routes read'})
+            else:
+                return create_response(command, NOT_FOUND, {'message': f'Vehicle with id={vehicle_id} not found'})
+
+
+@logged
 def update_vehicle_controller(command):
     data = command.get('data')
     try:
