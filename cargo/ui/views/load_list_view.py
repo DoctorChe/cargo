@@ -89,7 +89,6 @@ class LoadListView(QWidget):
         self.ui.te_info.setText(item.get('info'))
 
     def get_load_data(self):
-        print('Start read load data')
         length = self.ui.dsb_length.value()
         height = self.ui.dsb_height.value()
         width = self.ui.dsb_width.value()
