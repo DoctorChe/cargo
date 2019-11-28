@@ -2,6 +2,7 @@ import sys
 
 from PyQt5 import QtCore
 
+from cargo.ui.controllers.load_controller import LoadController
 from cargo.ui.controllers.menu_controller import MenuController
 from cargo.ui.controllers.staff_controller import StaffController
 from cargo.ui.controllers.vehicle_controller import VehicleController
@@ -30,6 +31,7 @@ class MainController(QtCore.QObject):
     def _init_right_panel(self):
         self._staff_controller = StaffController(self.view.right_panel.tab_staff, self._handler)
         self._vehicle_controller = VehicleController(self.view.right_panel.tab_vehicle, self._handler)
+        self._load_controller = LoadController(self.view.right_panel.tab_load, self._handler)
 
     def show(self):
         self.view.show()

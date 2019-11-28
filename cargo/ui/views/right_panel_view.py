@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets
 
+from cargo.ui.views.load_list_view import LoadListView
 from cargo.ui.views.staff_list_view import StaffListView
 from cargo.ui.views.vehicle_list_view import VehicleListView
 
@@ -13,3 +14,5 @@ class RightPanelView(QtWidgets.QTabWidget):
         self.addTab(self.tab_staff, 'Staff')
         self.tab_vehicle = VehicleListView(parent=self)
         self.addTab(self.tab_vehicle, 'Vehicle')
+        self.tab_load = LoadListView(parent=self)
+        self.addTab(self.tab_load, 'Load')
