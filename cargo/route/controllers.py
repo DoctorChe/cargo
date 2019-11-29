@@ -19,7 +19,7 @@ def create_city_controller(command):
 
 
 @logged
-def read_city_controller(command):
+def read_city_name_by_id_controller(command):
     try:
         city_id = command.get('data').get('city').get('id')
         if not city_id:
@@ -37,11 +37,29 @@ def read_city_controller(command):
 
 
 @logged
+def read_city_id_by_name_controller(command):
+    try:
+        city_name = command.get('data').get('city').get('name')
+        if not city_name:
+            raise IndexError
+    except IndexError:
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
+    else:
+        with session_scope() as session:
+            city = session.query(City).filter_by(name=city_name).first()
+            if city:
+                city = {attr: getattr(city, attr) for attr in city.__dict__ if attr[0] != '_'}
+                return create_response(command, OK, {'city': city, 'message': 'City read'})
+            else:
+                return create_response(command, NOT_FOUND, {'message': f'City with name={city_name} not found'})
+
+
+@logged
 def read_cities_controller(command):
     with session_scope() as session:
         cities = session.query(City).all()
         cities = [{attr: getattr(city, attr) for attr in city.__dict__ if attr[0] != '_'}
-                 for city in cities]
+                  for city in cities]
         return create_response(command, OK, {'cities': cities, 'message': 'Cities read'})
 
 
@@ -123,6 +141,16 @@ def read_warehouses_controller(command):
 
 
 @logged
+def read_warehouses_of_city_controller(command):
+    city_id = command.get('data').get('city').get('id')
+    with session_scope() as session:
+        warehouses = session.query(Warehouse).filter_by(city_id=city_id)
+        warehouses = [{attr: getattr(warehouse, attr) for attr in warehouse.__dict__ if attr[0] != '_'}
+                      for warehouse in warehouses]
+        return create_response(command, OK, {'warehouses': warehouses, 'message': 'Warehouses read'})
+
+
+@logged
 def update_warehouse_controller(command):
     data = command.get('data')
     try:
@@ -195,8 +223,17 @@ def read_routes_controller(command):
     with session_scope() as session:
         routes = session.query(Route).all()
         routes = [{attr: getattr(route, attr) for attr in route.__dict__ if attr[0] != '_'}
-                 for route in routes]
+                  for route in routes]
         return create_response(command, OK, {'routes': routes, 'message': 'Routes read'})
+
+
+# @logged
+# def read_routes_of_city_controller(command):
+#     with session_scope() as session:
+#         routes = session.query(Route).filter(city_id=city_id)
+#         routes = [{attr: getattr(route, attr) for attr in route.__dict__ if attr[0] != '_'}
+#                   for route in routes]
+#         return create_response(command, OK, {'routes': routes, 'message': 'Routes read'})
 
 
 @logged

@@ -100,7 +100,7 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label_6.setText(_translate("Form", "Список персонала"))
-        self.label_7.setText(_translate("Form", "Маршруты"))
+        self.label_7.setText(_translate("Form", "Список маршрутов"))
         self.pb_create_person.setText(_translate("Form", "Создать"))
         self.pb_update_person.setText(_translate("Form", "Обновить"))
         self.pb_delete_person.setText(_translate("Form", "Удалить"))

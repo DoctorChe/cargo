@@ -8,6 +8,7 @@ from cargo.ui.controllers.menu_controller import MenuController
 from cargo.ui.controllers.route_controller import RouteController
 from cargo.ui.controllers.staff_controller import StaffController
 from cargo.ui.controllers.vehicle_controller import VehicleController
+from cargo.ui.controllers.warehouse_controller import WarehouseController
 
 
 class MainController(QtCore.QObject):
@@ -35,8 +36,8 @@ class MainController(QtCore.QObject):
         self._vehicle_controller = VehicleController(self.view.right_panel.tab_vehicle, self._handler)
         self._load_controller = LoadController(self.view.right_panel.tab_load, self._handler)
         # self._route_controller = RouteController(self.view.right_panel.tab_route, self._handler)
-        # self._warehouse_controller = WarehouseController(self.view.right_panel.tab_warehouse, self._handler)
         self._city_controller = CityController(self.view.right_panel.tab_city, self._handler)
+        self._warehouse_controller = WarehouseController(self.view.right_panel.tab_warehouse, self._handler)
 
     def show(self):
         self.view.show()

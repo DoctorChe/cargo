@@ -23,3 +23,13 @@ def table_append_rows(table_widget, rows, h_headers):
 
 def table_cleaner(table_widget):
     table_widget.setRowCount(0)
+
+
+def combobox_append_rows(combobox_widget, items):
+    if len(items) > 1:
+        combobox_widget.insertItems(0, ['', ])
+    combobox_widget.insertItems(1, items)
+
+
+def combobox_cleaner(combobox_widget):
+    combobox_widget.clear()

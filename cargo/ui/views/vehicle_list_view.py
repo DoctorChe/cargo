@@ -4,7 +4,7 @@ from PyQt5.QtCore import pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt5.QtWidgets import QWidget, QAbstractItemView
 
 from cargo.ui.views.ui_vehicle import Ui_Form
-from cargo.utils.table_utils import table_cleaner, table_append_rows
+from cargo.utils.widget_utils import table_cleaner, table_append_rows
 
 H_HEADERS_VEHICLE = OrderedDict([
     ('id', 'id'),

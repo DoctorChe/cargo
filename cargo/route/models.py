@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from cargo.utils.db import Base
@@ -10,7 +10,7 @@ from cargo.vehicle.models import Vehicle
 class City(Base):
     __tablename__ = 'city'
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
     warehouses = relationship('Warehouse')
 
 
@@ -30,6 +30,10 @@ class Warehouse(Base):
     #                      Route.from_id == id,
     #                      Route.route_to == id,
     #                      )''')
+
+    __table_args__ = (
+        UniqueConstraint('address', 'city_id', name='_address_city_id_uc'),
+        )
 
 
 class Route(Base):

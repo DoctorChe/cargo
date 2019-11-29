@@ -5,6 +5,7 @@ from cargo.ui.views.load_list_view import LoadListView
 from cargo.ui.views.route_list_view import RouteListView
 from cargo.ui.views.staff_list_view import StaffListView
 from cargo.ui.views.vehicle_list_view import VehicleListView
+from cargo.ui.views.warehouse_list_view import WarehouseListView
 
 
 class RightPanelView(QtWidgets.QTabWidget):
@@ -18,9 +19,9 @@ class RightPanelView(QtWidgets.QTabWidget):
         self.addTab(self.tab_vehicle, 'Vehicle')
         self.tab_load = LoadListView(parent=self)
         self.addTab(self.tab_load, 'Load')
-        # self.tab_route = RouteListView(parent=self)
-        # self.addTab(self.tab_route, 'Route')
-        # self.tab_warehouse = WarehouseListView(parent=self)
-        # self.addTab(self.tab_warehouse, 'Warehouse')
+        self.tab_route = RouteListView(parent=self)
+        self.addTab(self.tab_route, 'Route')
+        self.tab_warehouse = WarehouseListView(parent=self)
+        self.addTab(self.tab_warehouse, 'Warehouse')
         self.tab_city = CityListView(parent=self)
         self.addTab(self.tab_city, 'City')

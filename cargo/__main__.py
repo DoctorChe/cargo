@@ -35,9 +35,9 @@ elif parser.parse_args().schema:
 
 else:
     app = QApplication(sys.argv)
-    controller = _create_controller(handler)
 
     with Cargo(handler) as cargo:
         # cargo.run()
+        controller = _create_controller(handler)
         controller.show()
         sys.exit(app.exec_())

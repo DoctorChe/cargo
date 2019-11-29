@@ -4,11 +4,11 @@ from PyQt5.QtCore import pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt5.QtWidgets import QWidget, QAbstractItemView
 
 from cargo.ui.views.ui_city import Ui_Form
-from cargo.utils.table_utils import table_cleaner, table_append_rows
+from cargo.utils.widget_utils import table_cleaner, table_append_rows
 
 H_HEADERS_CITY = OrderedDict([
     ('id', 'id'),
-    ('name', 'Наименоване'),
+    ('name', 'Наименование'),
 ])
 
 H_HEADERS_WAREHOUSES = OrderedDict([
@@ -17,11 +17,11 @@ H_HEADERS_WAREHOUSES = OrderedDict([
     ('city', 'Город'),
 ])
 
-# H_HEADERS_ROUTES = OrderedDict([
-#     ('id', 'id'),
-#     ('from_warehouse_id', 'Начальный пункт'),
-#     ('to_warehouse_id', 'Конечный пункт'),
-# ])
+H_HEADERS_ROUTES = OrderedDict([
+    ('id', 'id'),
+    ('from_warehouse_id', 'Начальный пункт'),
+    ('to_warehouse_id', 'Конечный пункт'),
+])
 
 
 class CityListView(QWidget):
@@ -50,27 +50,17 @@ class CityListView(QWidget):
         self.ui.tw_city.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tw_city.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
 
-        self.ui.tw_warehouses.setColumnCount(len(H_HEADERS_CITY))
-        self.ui.tw_warehouses.setHorizontalHeaderLabels(H_HEADERS_CITY.values())
+        self.ui.tw_warehouses.setColumnCount(len(H_HEADERS_WAREHOUSES))
+        self.ui.tw_warehouses.setHorizontalHeaderLabels(H_HEADERS_WAREHOUSES.values())
         self.ui.tw_warehouses.horizontalHeader().setVisible(True)
         self.ui.tw_warehouses.verticalHeader().setVisible(True)
         self.ui.tw_warehouses.setAlternatingRowColors(True)
         self.ui.tw_warehouses.setColumnHidden(0, True)
+        self.ui.tw_warehouses.setColumnHidden(2, True)
         self.ui.tw_warehouses.resizeColumnsToContents()
         self.ui.tw_warehouses.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.tw_warehouses.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tw_warehouses.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
-
-        # self.ui.tw_routes.setColumnCount(len(H_HEADERS_ROUTES))
-        # self.ui.tw_routes.setHorizontalHeaderLabels(H_HEADERS_ROUTES.values())
-        # self.ui.tw_routes.horizontalHeader().setVisible(True)
-        # self.ui.tw_routes.verticalHeader().setVisible(True)
-        # self.ui.tw_routes.setAlternatingRowColors(True)
-        # self.ui.tw_routes.setColumnHidden(0, True)
-        # self.ui.tw_routes.resizeColumnsToContents()
-        # self.ui.tw_routes.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # self.ui.tw_routes.setSelectionBehavior(QAbstractItemView.SelectRows)
-        # self.ui.tw_routes.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
 
         self.ui.tw_city.clicked.connect(self.city_table_clicked)
         self.ui.pb_create_city.clicked.connect(self.create_city_clicked)
@@ -110,10 +100,6 @@ class CityListView(QWidget):
     def populate_warehouses_table(self, items):
         table_cleaner(self.ui.tw_warehouses)
         table_append_rows(self.ui.tw_warehouses, items, H_HEADERS_WAREHOUSES)
-
-    # def populate_routes_table(self, items):
-    #     table_cleaner(self.ui.tw_routes)
-    #     table_append_rows(self.ui.tw_routes, items, H_HEADERS_ROUTES)
 
     def populate_city_card(self, item):
         self.ui.le_name.setText(item.get('name'))
