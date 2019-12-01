@@ -1,11 +1,11 @@
 import unittest
 
-from . import test_common
-from . import test_echo
-from . import test_staff
-from . import test_vehicle
-from . import test_load
-from . import test_route
+import test_common
+import test_echo
+import test_staff
+import test_vehicle
+import test_load
+import test_route
 
 
 if __name__ == '__main__':
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     cargoTestSuite.addTest(unittest.makeSuite(test_common.TestCargoInstance))
     cargoTestSuite.addTest(unittest.makeSuite(test_common.TestProtocolCreateCommand))
     cargoTestSuite.addTest(unittest.makeSuite(test_common.TestProtocolCreateResponse))
-    cargoTestSuite.addTest(unittest.makeSuite(test_common.TestHandler))
+    # cargoTestSuite.addTest(unittest.makeSuite(test_common.TestHandler))
     cargoTestSuite.addTest(unittest.makeSuite(test_staff.TestStaff))
     cargoTestSuite.addTest(unittest.makeSuite(test_vehicle.TestVehicle))
     cargoTestSuite.addTest(unittest.makeSuite(test_load.TestLoad))

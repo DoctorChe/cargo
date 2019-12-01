@@ -8,7 +8,7 @@ from cargo.ui.views.vehicle_list_view import VehicleListView
 from cargo.ui.views.warehouse_list_view import WarehouseListView
 
 
-class RightPanelView(QtWidgets.QTabWidget):
+class CentralPanelView(QtWidgets.QTabWidget):
 
     def __init__(self, parent):
         QtWidgets.QWidget.__init__(self, parent)

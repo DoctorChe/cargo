@@ -23,6 +23,14 @@ class Ui_AboutDialog(object):
         self.label_version = QtWidgets.QLabel(AboutDialog)
         self.label_version.setGeometry(QtCore.QRect(160, 50, 211, 17))
         self.label_version.setObjectName("label_version")
+        self.label_description = QtWidgets.QLabel(AboutDialog)
+        self.label_description.setGeometry(QtCore.QRect(160, 70, 361, 61))
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_description.setFont(font)
+        self.label_description.setTextFormat(QtCore.Qt.AutoText)
+        self.label_description.setObjectName("label_description")
         self.label_copiright = QtWidgets.QLabel(AboutDialog)
         self.label_copiright.setGeometry(QtCore.QRect(160, 130, 211, 17))
         self.label_copiright.setObjectName("label_copiright")
@@ -36,6 +44,7 @@ class Ui_AboutDialog(object):
         self.verticalLayout_logo.setObjectName("verticalLayout_logo")
         self.label_logo = QtWidgets.QLabel(self.widget_logo)
         self.label_logo.setText("")
+        self.label_logo.setPixmap(QtGui.QPixmap("logo.png"))
         self.label_logo.setScaledContents(True)
         self.label_logo.setObjectName("label_logo")
         self.verticalLayout_logo.addWidget(self.label_logo)
@@ -49,6 +58,8 @@ class Ui_AboutDialog(object):
         AboutDialog.setWindowTitle(_translate("AboutDialog", "О программе"))
         self.label.setText(_translate("AboutDialog", "CompanyStatistics"))
         self.label_version.setText(_translate("AboutDialog", "Версия 0.0.1"))
+        self.label_description.setText(_translate("AboutDialog",
+                                                  "<html><head/><body><p>Программа для учета грузоперевозок</p></body></html>"))
         self.label_copiright.setText(_translate("AboutDialog", "Copiright (C) 2019"))
 
 

@@ -21,7 +21,7 @@ class MainController(QtCore.QObject):
 
     def _init_controllers(self):
         self._init_menu_bar()
-        self._init_right_panel()
+        self._init_central_panel()
 
     def exit(self):
         self.view.close()
@@ -31,13 +31,13 @@ class MainController(QtCore.QObject):
         menu = self.view.menuBar()
         self._menu_controller = MenuController(self, menu)
 
-    def _init_right_panel(self):
-        self._staff_controller = StaffController(self.view.right_panel.tab_staff, self._handler)
-        self._vehicle_controller = VehicleController(self.view.right_panel.tab_vehicle, self._handler)
-        self._load_controller = LoadController(self.view.right_panel.tab_load, self._handler)
-        # self._route_controller = RouteController(self.view.right_panel.tab_route, self._handler)
-        self._city_controller = CityController(self.view.right_panel.tab_city, self._handler)
-        self._warehouse_controller = WarehouseController(self.view.right_panel.tab_warehouse, self._handler)
+    def _init_central_panel(self):
+        self._staff_controller = StaffController(self.view.central_panel.tab_staff, self._handler)
+        self._vehicle_controller = VehicleController(self.view.central_panel.tab_vehicle, self._handler)
+        self._load_controller = LoadController(self.view.central_panel.tab_load, self._handler)
+        # self._route_controller = RouteController(self.view.central_panel.tab_route, self._handler)
+        self._city_controller = CityController(self.view.central_panel.tab_city, self._handler)
+        self._warehouse_controller = WarehouseController(self.view.central_panel.tab_warehouse, self._handler)
 
     def show(self):
         self.view.show()

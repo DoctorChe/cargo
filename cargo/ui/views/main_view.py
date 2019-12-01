@@ -1,8 +1,7 @@
-from PyQt5 import QtGui, QtWidgets, QtCore
+from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSignal as Signal, pyqtSlot as Slot, Qt
 
-from cargo.ui.views.left_panel_view import LeftPanelView
-from cargo.ui.views.right_panel_view import RightPanelView
+from cargo.ui.views.central_panel_view import CentralPanelView
 
 
 class MainView(QtWidgets.QMainWindow):
@@ -21,19 +20,10 @@ class MainView(QtWidgets.QMainWindow):
     def _init_ui(self):
         self.setWindowTitle('CompanyStatistics')
 
-        # self.splitter = QtWidgets.QSplitter()
-        # self.splitter.setHandleWidth(1)
-        #
-        # self.left_panel = LeftPanelView(self.splitter)
-        # self.right_panel = RightPanelView(self.splitter)
-        #
-        # self.setCentralWidget(self.splitter)
-
-        self.right_panel = RightPanelView(parent=None)
-        self.setCentralWidget(self.right_panel)
+        self.central_panel = CentralPanelView(parent=None)
+        self.setCentralWidget(self.central_panel)
 
         self.resize(870, 650)
-        # self.splitter.setSizes([300, 550])
 
     def closeEvent(self, closeEvent):
         super(MainView, self).closeEvent(closeEvent)

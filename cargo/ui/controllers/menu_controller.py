@@ -2,6 +2,7 @@ from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 
 from cargo.ui.dialogs.about_dialog import AboutDialog
+from cargo.utils.schema import generate_schema
 
 
 class MenuController(QtCore.QObject):
@@ -14,11 +15,16 @@ class MenuController(QtCore.QObject):
 
     def _init_menu_bar(self):
         self._init_file_menu()
+        self._init_service_menu()
         self._init_help_menu()
 
     def _init_file_menu(self):
         file_menu = self._menu.addMenu(self.tr('&Файл'))
         file_menu.addAction(self._create_exit_action())
+
+    def _init_service_menu(self):
+        service_menu = self._menu.addMenu(self.tr('Сервис'))
+        service_menu.addAction(self._create_schema_action())
 
     def _init_help_menu(self):
         help_menu = self._menu.addMenu(self.tr('&Справка'))
@@ -52,4 +58,10 @@ class MenuController(QtCore.QObject):
         action = QtWidgets.QAction(self.tr('Выход'), self)
         action.setShortcuts(["Ctrl+Q"])
         action.triggered.connect(self._main_controller.exit)
+        return action
+
+    def _create_schema_action(self):
+        action = QtWidgets.QAction(self.tr('Создать визуализацию БД'), self)
+        action.setShortcuts(["Ctrl+F10"])
+        action.triggered.connect(generate_schema)
         return action
