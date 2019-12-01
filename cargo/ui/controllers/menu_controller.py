@@ -17,22 +17,22 @@ class MenuController(QtCore.QObject):
         self._init_help_menu()
 
     def _init_file_menu(self):
-        file_menu = self._menu.addMenu(self.tr('&File'))
+        file_menu = self._menu.addMenu(self.tr('&Файл'))
         file_menu.addAction(self._create_exit_action())
 
     def _init_help_menu(self):
-        help_menu = self._menu.addMenu(self.tr('&Help'))
+        help_menu = self._menu.addMenu(self.tr('&Справка'))
         help_menu.addAction(self._create_about_action())
         help_menu.addAction(self._create_aboutqt_action())
 
     def _create_about_action(self):
-        action = QtWidgets.QAction('&About', self)
+        action = QtWidgets.QAction('&О программе', self)
         action.setShortcuts(["F1"])
         action.triggered.connect(self._about)
         return action
 
     def _create_aboutqt_action(self):
-        action = QtWidgets.QAction('About&Qt', self)
+        action = QtWidgets.QAction('Информация о Qt', self)
         action.setShortcuts(["F12"])
         action.triggered.connect(self._aboutqt)
         return action
@@ -49,7 +49,7 @@ class MenuController(QtCore.QObject):
     def _create_exit_action(self):
         # action = QtWidgets.QAction(QtGui.QIcon(self._main_controller.view.style +
         #                                        '/resources/ApplicationExit.png'), self.tr('E&xit'), self)
-        action = QtWidgets.QAction(self.tr('E&xit'), self)
+        action = QtWidgets.QAction(self.tr('Выход'), self)
         action.setShortcuts(["Ctrl+Q"])
         action.triggered.connect(self._main_controller.exit)
         return action
