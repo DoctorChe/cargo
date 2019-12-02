@@ -26,6 +26,11 @@ class RouteController(QtCore.QObject):
         self.view.signal_get_vehicle_id_by_plate.connect(self.get_vehicle_id_by_plate)
         self.view.signal_get_load_id_by_info.connect(self.get_load_id_by_info)
 
+        self.view.signal_get_all_warehouses.connect(self.read_all_warehouses)
+        self.view.signal_get_all_persons.connect(self.read_all_persons)
+        self.view.signal_get_all_vehicles.connect(self.read_all_vehicles)
+        self.view.signal_get_all_loads.connect(self.read_all_loads)
+
     def create_route(self, data):
         action = 'create_route'
         self._handler(create_command(action, data))

@@ -12,11 +12,11 @@ H_HEADERS_WAREHOUSE = OrderedDict([
     ('city', 'Город'),
 ])
 
-H_HEADERS_ROUTES = OrderedDict([
-    ('id', 'id'),
-    ('from_warehouse_id', 'Начальный пункт'),
-    ('to_warehouse_id', 'Конечный пункт'),
-])
+# H_HEADERS_ROUTES = OrderedDict([
+#     ('id', 'id'),
+#     ('from_warehouse_id', 'Начальный пункт'),
+#     ('to_warehouse_id', 'Конечный пункт'),
+# ])
 
 
 class WarehouseListView(QWidget):
@@ -50,16 +50,16 @@ class WarehouseListView(QWidget):
         self.ui.tw_warehouse.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.tw_warehouse.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
 
-        self.ui.tw_routes.setColumnCount(len(H_HEADERS_ROUTES))
-        self.ui.tw_routes.setHorizontalHeaderLabels(H_HEADERS_ROUTES.values())
-        self.ui.tw_routes.horizontalHeader().setVisible(True)
-        self.ui.tw_routes.verticalHeader().setVisible(True)
-        self.ui.tw_routes.setAlternatingRowColors(True)
-        self.ui.tw_routes.setColumnHidden(0, True)
-        self.ui.tw_routes.resizeColumnsToContents()
-        self.ui.tw_routes.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.ui.tw_routes.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.ui.tw_routes.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
+        # self.ui.tw_routes.setColumnCount(len(H_HEADERS_ROUTES))
+        # self.ui.tw_routes.setHorizontalHeaderLabels(H_HEADERS_ROUTES.values())
+        # self.ui.tw_routes.horizontalHeader().setVisible(True)
+        # self.ui.tw_routes.verticalHeader().setVisible(True)
+        # self.ui.tw_routes.setAlternatingRowColors(True)
+        # self.ui.tw_routes.setColumnHidden(0, True)
+        # self.ui.tw_routes.resizeColumnsToContents()
+        # self.ui.tw_routes.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        # self.ui.tw_routes.setSelectionBehavior(QAbstractItemView.SelectRows)
+        # self.ui.tw_routes.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
 
         self.ui.tw_warehouse.clicked.connect(self.warehouse_table_clicked)
         self.ui.pb_create_warehouse.clicked.connect(self.create_warehouse_clicked)
@@ -99,9 +99,9 @@ class WarehouseListView(QWidget):
         table_cleaner(self.ui.tw_warehouse)
         table_append_rows(self.ui.tw_warehouse, items, H_HEADERS_WAREHOUSE)
 
-    def populate_routes_table(self, items):
-        table_cleaner(self.ui.tw_routes)
-        table_append_rows(self.ui.tw_routes, items, H_HEADERS_ROUTES)
+    # def populate_routes_table(self, items):
+    #     table_cleaner(self.ui.tw_routes)
+    #     table_append_rows(self.ui.tw_routes, items, H_HEADERS_ROUTES)
 
     def populate_warehouse_card(self, item):
         self.ui.le_address.setText(item.get('address'))

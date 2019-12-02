@@ -55,4 +55,32 @@ class VehicleController(QtCore.QObject):
         response = self._handler(create_command(action, data))
 
         routes = response.get('data').get('routes')
+        for route in routes:
+            from_warehouse = {'warehouse': {'id': route.get('from_warehouse_id')}}
+            route['from_warehouse'] = self.get_warehouse_full_address_by_id(from_warehouse)
+            to_warehouse = {'warehouse': {'id': route.get('to_warehouse_id')}}
+            route['to_warehouse'] = self.get_warehouse_full_address_by_id(to_warehouse)
         self.view.populate_routes_table(routes)
+
+    def get_warehouse_full_address_by_id(self, data):
+        action = 'read_warehouse'
+        response = self._handler(create_command(action, data))
+
+        warehouse = response.get('data').get('warehouse')
+
+        cities = self.read_all_cities()
+        city_id = warehouse.get('city_id')
+        city_name = ''
+        for city in cities:
+            if city_id == city.get('id'):
+                city_name = city.get('name')
+                break
+        warehouse = f"{warehouse.get('address')} ({city_name})"
+
+        return warehouse
+
+    def read_all_cities(self, data=None):
+        action = 'read_all_cities'
+        response = self._handler(create_command(action, data))
+        cities = response.get('data').get('cities')
+        return cities

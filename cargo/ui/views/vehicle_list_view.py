@@ -19,8 +19,8 @@ H_HEADERS_VEHICLE = OrderedDict([
 
 H_HEADERS_ROUTES = OrderedDict([
     ('id', 'id'),
-    ('from_warehouse_id', 'Начальный пункт'),
-    ('to_warehouse_id', 'Конечный пункт'),
+    ('from_warehouse', 'Начальный пункт'),
+    ('to_warehouse', 'Конечный пункт'),
 ])
 
 

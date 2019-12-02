@@ -36,6 +36,11 @@ class RouteListView(QWidget):
     signal_get_vehicle_id_by_plate = Signal(dict)
     signal_get_load_id_by_info = Signal(dict)
 
+    signal_get_all_warehouses = Signal()
+    signal_get_all_persons = Signal()
+    signal_get_all_vehicles = Signal()
+    signal_get_all_loads = Signal()
+
     def __init__(self, parent):
         QWidget.__init__(self, parent)
 
@@ -75,6 +80,11 @@ class RouteListView(QWidget):
         self.ui.pb_create_route.clicked.connect(self.create_route_clicked)
         self.ui.pb_update_route.clicked.connect(self.update_route_clicked)
         self.ui.pb_delete_route.clicked.connect(self.delete_route_clicked)
+
+        self.parent().currentChanged.connect(self.get_all_warehouses)
+        self.parent().currentChanged.connect(self.get_all_persons)
+        self.parent().currentChanged.connect(self.get_all_vehicles)
+        self.parent().currentChanged.connect(self.get_all_loads)
 
     def route_table_clicked(self, idx):
         self.route_id = self.ui.tw_route.item(idx.row(), 0).text()
@@ -211,5 +221,14 @@ class RouteListView(QWidget):
         combobox_cleaner(self.ui.cb_load)
         combobox_append_rows(self.ui.cb_load, items)
 
-    # def get_all_cities(self):
-    #     self.signal_get_all_cities.emit()
+    def get_all_warehouses(self):
+        self.signal_get_all_warehouses.emit()
+
+    def get_all_persons(self):
+        self.signal_get_all_persons.emit()
+
+    def get_all_vehicles(self):
+        self.signal_get_all_vehicles.emit()
+
+    def get_all_loads(self):
+        self.signal_get_all_loads.emit()

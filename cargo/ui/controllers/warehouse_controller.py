@@ -72,12 +72,11 @@ class WarehouseController(QtCore.QObject):
 
         self.read_all_warehouses()
 
-    def read_routes_of_warehouse(self, data):
-        action = 'read_routes_of_warehouse'
-        response = self._handler(create_command(action, data))
-
-        routes = response.get('data').get('routes')
-        self.view.populate_routes_table(routes)
+    # def read_routes_of_warehouse(self, data):
+    #     action = 'read_routes_of_warehouse'
+    #     response = self._handler(create_command(action, data))
+    #     routes = response.get('data').get('routes')
+    #     self.view.populate_routes_table(routes)
 
     def read_all_cities(self, data=None):
         action = 'read_all_cities'
