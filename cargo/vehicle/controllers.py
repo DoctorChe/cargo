@@ -37,6 +37,24 @@ def read_vehicle_controller(command):
 
 
 @logged
+def read_vehicle_by_plate_controller(command):
+    try:
+        vehicle_plate = command.get('data').get('vehicle').get('plate')
+        if not vehicle_plate:
+            raise IndexError
+    except IndexError:
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
+    else:
+        with session_scope() as session:
+            vehicle = session.query(Vehicle).filter_by(plate=vehicle_plate).first()
+            if vehicle:
+                vehicle = {attr: getattr(vehicle, attr) for attr in vehicle.__dict__ if attr[0] != '_'}
+                return create_response(command, OK, {'vehicle': vehicle, 'message': 'Vehicle read'})
+            else:
+                return create_response(command, NOT_FOUND, {'message': f'Vehicle with plate={vehicle_plate} not found'})
+
+
+@logged
 def read_vehicles_controller(command):
     with session_scope() as session:
         vehicles = session.query(Vehicle).all()

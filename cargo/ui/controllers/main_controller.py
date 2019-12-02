@@ -35,7 +35,7 @@ class MainController(QtCore.QObject):
         self._staff_controller = StaffController(self.view.central_panel.tab_staff, self._handler)
         self._vehicle_controller = VehicleController(self.view.central_panel.tab_vehicle, self._handler)
         self._load_controller = LoadController(self.view.central_panel.tab_load, self._handler)
-        # self._route_controller = RouteController(self.view.central_panel.tab_route, self._handler)
+        self._route_controller = RouteController(self.view.central_panel.tab_route, self._handler)
         self._city_controller = CityController(self.view.central_panel.tab_city, self._handler)
         self._warehouse_controller = WarehouseController(self.view.central_panel.tab_warehouse, self._handler)
 

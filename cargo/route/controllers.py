@@ -132,6 +132,25 @@ def read_warehouse_controller(command):
 
 
 @logged
+def read_warehouse_by_full_address_controller(command):
+    try:
+        address = command.get('data').get('warehouse').get('address')
+        city_name = command.get('data').get('warehouse').get('city_name')
+        if not address or not city_name:
+            raise IndexError
+    except IndexError:
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
+    else:
+        with session_scope() as session:
+            city = session.query(City).filter_by(name=city_name).first()
+            warehouse = session.query(Warehouse).filter_by(address=address).filter_by(city_id=city.id).first()
+            if warehouse:
+                warehouse = {attr: getattr(warehouse, attr) for attr in warehouse.__dict__ if attr[0] != '_'}
+                return create_response(command, OK, {'warehouse': warehouse, 'message': 'Warehouse read'})
+            else:
+                return create_response(command, NOT_FOUND, {'message': f'Warehouse with address={address} not found'})
+
+@logged
 def read_warehouses_controller(command):
     with session_scope() as session:
         warehouses = session.query(Warehouse).all()

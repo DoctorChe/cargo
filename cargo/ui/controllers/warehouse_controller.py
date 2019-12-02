@@ -84,7 +84,7 @@ class WarehouseController(QtCore.QObject):
         response = self._handler(create_command(action, data))
 
         cities = response.get('data').get('cities')
-        self.view.cities = cities
+        # self.view.cities = cities
         cities = [city['name'] for city in cities]
         self.view.populate_cities_combobox(cities)
 

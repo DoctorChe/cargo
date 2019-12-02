@@ -37,6 +37,31 @@ def read_person_controller(command):
 
 
 @logged
+def read_person_by_fullname_controller(command):
+    try:
+        person_name = command.get('data').get('person').get('name')
+        person_surname = command.get('data').get('person').get('surname')
+        person_patronymic = command.get('data').get('person').get('patronymic')
+        if not person_name or not person_surname:
+            raise IndexError
+    except IndexError:
+        return create_response(command, WRONG_REQUEST, {'message': 'No id or data specified'})
+    else:
+        with session_scope() as session:
+            if person_patronymic:
+                person = session.query(Person).filter_by(name=person_name).filter_by(surname=person_surname).filter_by(
+                    patronymic=person_patronymic).first()
+            else:
+                person = session.query(Person).filter_by(name=person_name).filter_by(surname=person_surname).first()
+            if person:
+                person = {attr: getattr(person, attr) for attr in person.__dict__ if attr[0] != '_'}
+                return create_response(command, OK, {'person': person, 'message': 'Person read'})
+            else:
+                return create_response(command, NOT_FOUND, {
+                    'message': f'Person with name={person_name} and surname={person_surname} not found'})
+
+
+@logged
 def read_persons_controller(command):
     with session_scope() as session:
         persons = session.query(Person).all()

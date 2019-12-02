@@ -8,6 +8,7 @@ from .controllers import (
 
     create_warehouse_controller,
     read_warehouse_controller,
+    read_warehouse_by_full_address_controller,
     read_warehouses_controller,
     read_warehouses_of_city_controller,
     update_warehouse_controller,
@@ -30,6 +31,7 @@ action_names = [
 
     {'action': 'create_warehouse', "controller": create_warehouse_controller},
     {'action': 'read_warehouse', 'controller': read_warehouse_controller},
+    {'action': 'read_warehouse_by_full_address', 'controller': read_warehouse_by_full_address_controller},
     {'action': 'read_all_warehouses', 'controller': read_warehouses_controller},
     {'action': 'read_warehouses_of_city', 'controller': read_warehouses_of_city_controller},
     {'action': 'update_warehouse', "controller": update_warehouse_controller},

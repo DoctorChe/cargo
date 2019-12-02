@@ -103,20 +103,20 @@ class VehicleListView(QWidget):
     def populate_vehicle_card(self, item):
         self.ui.le_model.setText(item.get('model'))
         self.ui.le_plate.setText(item.get('plate'))
-        self.ui.le_year.setText(str(item.get('year')))
-        self.ui.le_payload.setText(str(item.get('payload')))
-        self.ui.le_run.setText(str(item.get('run')))
-        self.ui.le_fuel_consumption.setText(str(item.get('fuel_consumption')))
-        self.ui.le_volume.setText(str(item.get('volume')))
+        self.ui.sb_year.setValue(item.get('year'))
+        self.ui.sb_payload.setValue(item.get('payload'))
+        self.ui.sb_run.setValue(item.get('run'))
+        self.ui.dsb_fuel_consumption.setValue(item.get('fuel_consumption'))
+        self.ui.dsb_volume.setValue(item.get('volume'))
 
     def get_vehicle_data(self):
         model = self.ui.le_model.text()
         plate = self.ui.le_plate.text()
-        year = int(self.ui.le_year.text())
-        payload = int(self.ui.le_payload.text())
-        run = int(self.ui.le_run.text())
-        fuel_consumption = float(self.ui.le_fuel_consumption.text())
-        volume = float(self.ui.le_volume.text())
+        year = self.ui.sb_year.value()
+        payload = self.ui.sb_payload.value()
+        run = self.ui.sb_run.value()
+        fuel_consumption = self.ui.dsb_fuel_consumption.value()
+        volume = self.ui.dsb_volume.value()
         vehicle = {'vehicle': {
             'model': model,
             'plate': plate,

@@ -52,7 +52,7 @@ def common_check_command(data: dict) -> bool:
         return False
 
     def check_action(data: dict) -> bool:
-        if 'action' in data and len(data['action']) <= 25:
+        if 'action' in data and len(data['action']) <= 100:
             return True
         logger.error(f"Attribute {'action'} is missing or longer than 25 characters")
         return False
